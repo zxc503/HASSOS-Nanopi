@@ -1,0 +1,187 @@
+BR2_aarch64=y                    # 使用64位ARM架构
+BR2_cortex_a53=y                # 使用Cortex-A53处理器
+BR2_ARM_FPU_VFPV4=y             # 启用VFPv4浮点单元
+BR2_DL_DIR="/cache/dl"          # 设置下载目录为/cache/dl
+BR2_CCACHE=y                    # 启用编译缓存
+BR2_CCACHE_DIR="/cache/cc"      # 设置编译缓存目录为/cache/cc
+BR2_GLOBAL_PATCH_DIR="$(BR2_EXTERNAL_HASSOS_PATH)/patches" #$(BR2_EXTERNAL_HASSOS_PATH)/board/radxa/patches"
+# BR2_TARGET_GENERIC_REMOUNT_ROOTFS_RW is not set
+BR2_ENABLE_LTO=y                # 启用链接时优化
+BR2_GCC_VERSION_11_X=y          # 使用GCC 11.x版本
+BR2_INIT_SYSTEMD=y              # 使用systemd作为init系统
+BR2_ROOTFS_OVERLAY="$(BR2_EXTERNAL_HASSOS_PATH)/rootfs-overlay"    # 设置根文件系统覆盖目录
+BR2_ROOTFS_POST_BUILD_SCRIPT="$(BR2_EXTERNAL_HASSOS_PATH)/scripts/post-build.sh"    # 设置构建后脚本
+BR2_ROOTFS_POST_IMAGE_SCRIPT="$(BR2_EXTERNAL_HASSOS_PATH)/scripts/post-image.sh"    # 设置镜像生成后脚本
+BR2_ROOTFS_POST_SCRIPT_ARGS="$(BR2_EXTERNAL_HASSOS_PATH)/board/nanopi/nanopi_neo3   $(BR2_EXTERNAL_HASSOS_PATH)/board/nanopi/nanopi_neo3/hassos-hook.sh"    # 设置脚本参数
+BR2_SSP_REGULAR=y               # 启用常规栈保护
+BR2_TARGET_GENERIC_HOSTNAME="homeassistant"    # 设置主机名为homeassistant
+BR2_TARGET_GENERIC_ISSUE="Welcome to Home Assistant"    # 设置登录提示信息
+BR2_TARGET_ROOTFS_EROFS=y       # 使用EROFS根文件系统
+BR2_TARGET_ROOTFS_EROFS_LZ4HC_LEVEL=12
+BR2_TARGET_ROOTFS_EROFS_DEDUPE=y    # 启用EROFS重复数据删除
+BR2_TARGET_ROOTFS_EROFS_FRAGMENTS=y    # 启用EROFS分片
+BR2_TARGET_ROOTFS_EROFS_ZTAILPACKING=y    # 启用EROFS尾部打包
+BR2_TARGET_ROOTFS_EROFS_PCLUSTERSIZE=262144
+# BR2_TARGET_ROOTFS_TAR is not set
+BR2_TOOLCHAIN_BUILDROOT_CXX=y    # 启用C++支持
+BR2_TOOLCHAIN_BUILDROOT_GLIBC=y    # 使用GLIBC作为C库
+
+# Firmware
+BR2_TARGET_ARM_TRUSTED_FIRMWARE=y
+BR2_TARGET_ARM_TRUSTED_FIRMWARE_LATEST_VERSION=y
+BR2_TARGET_ARM_TRUSTED_FIRMWARE_PLATFORM="rk3328"
+BR2_TARGET_ARM_TRUSTED_FIRMWARE_BL31=y
+
+# Bootloader
+BR2_TARGET_UBOOT=y              # 启用U-Boot
+BR2_TARGET_UBOOT_BUILD_SYSTEM_KCONFIG=y    # 使用Kconfig构建系统
+BR2_TARGET_UBOOT_CUSTOM_VERSION=y    # 使用自定义U-Boot版本
+BR2_TARGET_UBOOT_CUSTOM_VERSION_VALUE="2024.01"    # U-Boot版本为2024.01
+BR2_TARGET_UBOOT_BOARD_DEFCONFIG="nanopi-r2s-rk3328"    # 设置开发板配置
+BR2_TARGET_UBOOT_CONFIG_FRAGMENT_FILES="$(BR2_EXTERNAL_HASSOS_PATH)/bootloader/uboot.config" #$(BR2_EXTERNAL_HASSOS_PATH)/board/nanopi/uboot.config"
+BR2_TARGET_UBOOT_NEEDS_DTC=y    # 需要设备树编译器
+BR2_TARGET_UBOOT_NEEDS_PYTHON3=y    # 需要Python3
+BR2_TARGET_UBOOT_NEEDS_PYELFTOOLS=y    # 需要pyelftools
+BR2_TARGET_UBOOT_NEEDS_PYLIBFDT=y    # 需要pylibfdt
+BR2_TARGET_UBOOT_NEEDS_ATF_BL31=y
+BR2_TARGET_UBOOT_NEEDS_ATF_BL31_ELF=y
+BR2_TARGET_ARM_TRUSTED_FIRMWARE_IMAGES="bl31/*.elf"
+BR2_TARGET_UBOOT_SPL=y                  # 需要SPL
+BR2_TARGET_UBOOT_SPL_NAME="u-boot-rockchip.bin"
+
+# Kernel
+BR2_LINUX_KERNEL=y              # 启用Linux内核
+BR2_LINUX_KERNEL_CUSTOM_VERSION=y    # 使用自定义内核版本
+BR2_LINUX_KERNEL_CUSTOM_VERSION_VALUE="6.6.66"    # 内核版本为6.6.66
+BR2_LINUX_KERNEL_USE_CUSTOM_CONFIG=y    # 使用自定义内核配置
+BR2_LINUX_KERNEL_CUSTOM_CONFIG_FILE="$(BR2_EXTERNAL_HASSOS_PATH)/kernel/v6.6.y/kernel-arm64-rockchip.config"
+BR2_LINUX_KERNEL_CONFIG_FRAGMENT_FILES="$(BR2_EXTERNAL_HASSOS_PATH)/kernel/v6.6.y/hassos.config $(BR2_EXTERNAL_HASSOS_PATH)/kernel/v6.6.y/docker.config $(BR2_EXTERNAL_HASSOS_PATH)/kernel/v6.6.y/device-support.config"
+# BR2_LINUX_KERNEL_LZ4=y          # 使用LZ4压缩内核
+# BR2_LINUX_KERNEL_USE_ARCH_DEFAULT_CONFIG=y
+BR2_LINUX_KERNEL_DTS_SUPPORT=y    # 启用设备树支持
+BR2_LINUX_KERNEL_INTREE_DTS_NAME="rockchip/rk3328-nanopi-r2s"    # 设置设备树名称
+# BR2_LINUX_KERNEL_INSTALL_INTREE_OVERLAYS=y    # 安装树内设备树覆盖
+BR2_LINUX_KERNEL_DTB_KEEP_DIRNAME=y    # 保留设备树目录名
+BR2_LINUX_KERNEL_DTB_OVERLAY_SUPPORT=y    # 支持设备树覆盖
+BR2_LINUX_KERNEL_NEEDS_HOST_OPENSSL=y    # 需要主机OpenSSL
+BR2_LINUX_KERNEL_NEEDS_HOST_LIBELF=y    # 需要主机libelf
+
+# Host Packages
+BR2_PACKAGE_HOST_DOSFSTOOLS=y    # 安装主机dosfstools
+BR2_PACKAGE_HOST_E2FSPROGS=y    # 安装主机e2fsprogs
+BR2_PACKAGE_HOST_GENIMAGE=y     # 安装主机genimage
+BR2_PACKAGE_HOST_GPTFDISK=y     # 安装主机gptfdisk
+BR2_PACKAGE_HOST_MTOOLS=y       # 安装主机mtools
+BR2_PACKAGE_HOST_RAUC=y         # 安装主机rauc
+BR2_PACKAGE_HOST_TEMPIO=y       # 安装主机tempio
+BR2_PACKAGE_HOST_UBOOT_TOOLS=y  # 安装主机uboot-tools
+BR2_PACKAGE_HOST_UBOOT_TOOLS_BOOT_SCRIPT=y
+BR2_PACKAGE_HOST_UBOOT_TOOLS_BOOT_SCRIPT_SOURCE="$(BR2_EXTERNAL_HASSOS_PATH)/board/nanopi/nanopi_neo3/uboot-boot.ush"
+BR2_PACKAGE_HOST_SWIG=y         # 安装主机swig
+
+# Packages
+BR2_PACKAGE_APPARMOR=y          # 安装AppArmor
+BR2_PACKAGE_APPARMOR_PROFILES=y # 安装AppArmor配置文件
+BR2_PACKAGE_BUSYBOX_CONFIG="$(BR2_EXTERNAL_HASSOS_PATH)/busybox.config"    # 设置BusyBox配置文件路径
+BR2_PACKAGE_BUSYBOX_INDIVIDUAL_BINARIES=y      # 生成独立的BusyBox二进制文件
+BR2_PACKAGE_CA_CERTIFICATES=y                  # 安装CA证书
+BR2_PACKAGE_CIFS_UTILS=y                      # 安装CIFS文件系统工具
+BR2_PACKAGE_DBUS_BROKER=y                     # 安装D-Bus消息代理
+BR2_PACKAGE_DHCP_CLIENT=y                     # 安装DHCP客户端
+BR2_PACKAGE_DHCP=y                           # 安装DHCP服务器
+BR2_PACKAGE_DOCKER_CLI=y                      # 安装Docker命令行工具
+BR2_PACKAGE_DOCKER_ENGINE=y                   # 安装Docker引擎
+BR2_PACKAGE_DOSFSTOOLS=y                      # 安装DOS文件系统工具
+BR2_PACKAGE_DOSFSTOOLS_FSCK_FAT=y            # 安装FAT文件系统检查工具
+BR2_PACKAGE_DROPBEAR=y                        # 安装Dropbear SSH服务器
+BR2_PACKAGE_E2FSPROGS_E2IMAGE=y              # 安装ext文件系统镜像工具
+BR2_PACKAGE_GPTFDISK=y                       # 安装GPT分区工具
+BR2_PACKAGE_GPTFDISK_SGDISK=y                # 安装sgdisk工具
+BR2_PACKAGE_HASSIO=y                         # 安装Home Assistant Supervisor
+BR2_PACKAGE_HASSIO_ARCH="aarch64"            # 设置Home Assistant架构为aarch64
+BR2_PACKAGE_HASSIO_MACHINE="qemuarm-64"      # 使用通用aarch64镜像
+# BR2_PACKAGE_IFUPDOWN_SCRIPTS is not set
+BR2_PACKAGE_IPROUTE2=y                       # 安装iproute2网络工具
+BR2_PACKAGE_IPTABLES_NFTABLES_DEFAULT=y      # 使用nftables作为默认防火墙
+BR2_PACKAGE_IPTABLES_NFTABLES=y              # 安装nftables防火墙
+BR2_PACKAGE_JQ=y                             # 安装jq JSON处理工具
+BR2_PACKAGE_LESS=y                           # 安装less文本查看器
+BR2_PACKAGE_LIBCGROUP=y                      # 安装控制组库
+BR2_PACKAGE_LIBCGROUP_TOOLS=y                # 安装控制组工具
+BR2_PACKAGE_LIBCURL_CURL=y                   # 安装curl库和工具
+BR2_PACKAGE_LIBDNET=y                        # 安装网络接口库
+BR2_PACKAGE_LIBSECCOMP=y                     # 安装系统调用过滤库
+BR2_PACKAGE_LINUX_FIRMWARE=y                  # 安装Linux固件
+BR2_PACKAGE_LINUX_FIRMWARE_COMPRESS=y         # 启用固件压缩
+BR2_PACKAGE_LINUX_FIRMWARE_COMPRESS_ZSTD=y    # 使用zstd压缩固件
+# BR2_PACKAGE_LINUX_FIRMWARE_MT7921_BT=y       # 安装MT7921蓝牙固件
+# BR2_PACKAGE_LINUX_FIRMWARE_MT7922_BT=y       # 安装MT7922蓝牙固件
+# BR2_PACKAGE_LINUX_FIRMWARE_QUALCOMM_6174A_BT=y # 安装高通6174A蓝牙固件
+# BR2_PACKAGE_LINUX_FIRMWARE_RTL_87XX_BT=y     # 安装RTL87XX蓝牙固件
+# BR2_PACKAGE_LINUX_FIRMWARE_RTL_88XX_BT=y     # 安装RTL88XX蓝牙固件
+# BR2_PACKAGE_LINUX_FIRMWARE_ATHEROS_6003=y    # 安装Atheros 6003固件
+# BR2_PACKAGE_LINUX_FIRMWARE_ATHEROS_6004=y    # 安装Atheros 6004固件
+# BR2_PACKAGE_LINUX_FIRMWARE_ATHEROS_7010=y    # 安装Atheros 7010固件
+# BR2_PACKAGE_LINUX_FIRMWARE_ATHEROS_9170=y    # 安装Atheros 9170固件
+# BR2_PACKAGE_LINUX_FIRMWARE_ATHEROS_9271=y    # 安装Atheros 9271固件
+# BR2_PACKAGE_LINUX_FIRMWARE_BRCM_BCM43XX=y    # 安装博通BCM43XX固件
+# conflicts with BR2_PACKAGE_BRCMFMAC_SDIO_FIRMWARE_RPI_WIFI
+# BR2_PACKAGE_LINUX_FIRMWARE_BRCM_BCM43XXX is not set
+# BR2_PACKAGE_LINUX_FIRMWARE_MWIFIEX_SD8787=y  # 安装Marvell SD8787固件
+# BR2_PACKAGE_LINUX_FIRMWARE_MWIFIEX_SD8797=y  # 安装Marvell SD8797固件
+# BR2_PACKAGE_LINUX_FIRMWARE_MWIFIEX_USB8797=y # 安装Marvell USB8797固件
+# BR2_PACKAGE_LINUX_FIRMWARE_MWIFIEX_USB8801=y # 安装Marvell USB8801固件
+# BR2_PACKAGE_LINUX_FIRMWARE_MWIFIEX_SD8887=y  # 安装Marvell SD8887固件
+# BR2_PACKAGE_LINUX_FIRMWARE_MWIFIEX_SD8897=y  # 安装Marvell SD8897固件
+# BR2_PACKAGE_LINUX_FIRMWARE_MWIFIEX_USB8897=y # 安装Marvell USB8897固件
+# BR2_PACKAGE_LINUX_FIRMWARE_MEDIATEK_MT7601U=y  # 安装联发科MT7601U固件
+# BR2_PACKAGE_LINUX_FIRMWARE_MEDIATEK_MT7610E=y  # 安装联发科MT7610E固件
+# BR2_PACKAGE_LINUX_FIRMWARE_MEDIATEK_MT76X2E=y  # 安装联发科MT76X2E固件
+# BR2_PACKAGE_LINUX_FIRMWARE_MEDIATEK_MT7921=y   # 安装联发科MT7921固件
+# BR2_PACKAGE_LINUX_FIRMWARE_MEDIATEK_MT7922=y   # 安装联发科MT7922固件
+# BR2_PACKAGE_LINUX_FIRMWARE_RALINK_RT73=y       # 安装Ralink RT73固件
+# BR2_PACKAGE_LINUX_FIRMWARE_RALINK_RT2XX=y      # 安装Ralink RT2XX固件
+BR2_PACKAGE_LINUX_FIRMWARE_RTL_81XX=y          # 安装Realtek 81XX固件
+BR2_PACKAGE_LINUX_FIRMWARE_RTL_87XX=y          # 安装Realtek 87XX固件
+BR2_PACKAGE_LINUX_FIRMWARE_RTL_RTW88=y         # 安装Realtek RTW88固件
+BR2_PACKAGE_LINUX_FIRMWARE_RTL_RTW89=y         # 安装Realtek RTW89固件
+BR2_PACKAGE_LINUX_FIRMWARE_RTL_815X=y          # 安装Realtek 815X固件
+# BR2_PACKAGE_LINUX_FIRMWARE_USB_SERIAL_TI=y     # 安装德州仪器USB串口固件
+# BR2_PACKAGE_LVM2_STANDARD_INSTALL is not set
+BR2_PACKAGE_NETWORK_MANAGER=y                  # 安装NetworkManager网络管理器
+BR2_PACKAGE_NETWORK_MANAGER_CLI=y              # 安装NetworkManager命令行工具
+BR2_PACKAGE_NFS_UTILS=y                       # 安装NFS工具
+# BR2_PACKAGE_NFS_UTILS_RPC_NFSD is not set
+BR2_PACKAGE_NVME=y                            # 安装NVMe工具
+BR2_PACKAGE_OS_AGENT=y                        # 安装操作系统代理
+BR2_PACKAGE_OS_AGENT_BOARD="GenericAarch64"         # 设置开发板类型为RockPi4C
+BR2_PACKAGE_PROCPS_NG=y                       # 安装进程管理工具
+BR2_PACKAGE_RAUC=y                          # 安装RAUC更新系统
+BR2_PACKAGE_RAUC_DBUS=y                    # 启用RAUC的D-Bus支持
+BR2_PACKAGE_RAUC_NETWORK=y                 # 启用RAUC的网络支持
+BR2_PACKAGE_RPCBIND=y                      # 安装RPC绑定服务
+BR2_PACKAGE_RPI_RF_MOD=y                   # 安装树莓派RF模块支持
+BR2_PACKAGE_RTL8812AU_AIRCRACK_NG=y       # 安装RTL8812AU无线网卡驱动(带Aircrack-ng支持)
+BR2_PACKAGE_RTL8821CU=y                    # 安装RTL8821CU无线网卡驱动
+BR2_PACKAGE_SYSTEMD_COREDUMP=y             # 启用systemd核心转储功能
+# BR2_PACKAGE_SYSTEMD_HWDB is not set
+BR2_PACKAGE_SYSTEMD_JOURNAL_REMOTE=y        # 启用systemd远程日志功能
+BR2_PACKAGE_SYSTEMD_LOGIND=y               # 启用systemd登录管理
+BR2_PACKAGE_SYSTEMD_RANDOMSEED=y           # 启用systemd随机数种子生成
+BR2_PACKAGE_SYSTEMD_VCONSOLE_DEFAULT_KEYMAP="" # 设置虚拟控制台默认键盘映射
+BR2_PACKAGE_TINI=y                         # 安装Tini初始化系统
+BR2_PACKAGE_UDISKS2=y                      # 安装UDisks2磁盘管理服务
+BR2_PACKAGE_USB_MODESWITCH_DATA=y          # 安装USB_ModeSwitch数据文件
+BR2_PACKAGE_UTIL_LINUX_LOGIN=y             # 安装login命令
+BR2_PACKAGE_UTIL_LINUX_NOLOGIN=y           # 安装nologin命令
+BR2_PACKAGE_UTIL_LINUX_PARTX=y             # 安装partx分区工具
+BR2_PACKAGE_UTIL_LINUX_ZRAMCTL=y           # 安装zram控制工具
+BR2_PACKAGE_V4L2LOOPBACK=y                 # 安装V4L2回环设备支持
+BR2_PACKAGE_WIRELESS_REGDB=y               # 安装无线监管数据库
+# BR2_PACKAGE_WPA_SUPPLICANT=y               # 安装WPA Supplicant
+# BR2_PACKAGE_WPA_SUPPLICANT_AP_SUPPORT=y    # 启用WPA Supplicant AP模式支持
+# BR2_PACKAGE_WPA_SUPPLICANT_DBUS_INTROSPECTION=y # 启用WPA Supplicant D-Bus自省
+# BR2_PACKAGE_WPA_SUPPLICANT_DBUS=y          # 启用WPA Supplicant D-Bus支持
+# BR2_PACKAGE_WPA_SUPPLICANT_NL80211=y       # 启用nl80211驱动支持
+# BR2_PACKAGE_WPA_SUPPLICANT_WEXT=y          # 启用无线扩展支持
+# BR2_PACKAGE_WPA_SUPPLICANT_WPA3=y          # 启用WPA3支持

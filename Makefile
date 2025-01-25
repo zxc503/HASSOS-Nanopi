@@ -16,7 +16,7 @@ endif
 
 .NOTPARALLEL: $(TARGETS) $(TARGETS_CONFIG) all
 
-.PHONY: $(TARGETS) $(TARGETS_CONFIG) all clean help
+.PHONY: $(TARGETS) $(TARGETS_CONFIG) all clean help %-dirclean
 
 all: $(TARGETS)
 
@@ -42,9 +42,13 @@ endif
 clean:
 	$(MAKE) -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL) clean
 
+%-dirclean:
+	$(MAKE) $@  -C $(BUILDROOT) O=$(O) BR2_EXTERNAL=$(BUILDROOT_EXTERNAL)
+
 help:
 	@echo "Supported targets: $(TARGETS)"
 	@echo "Run 'make <target>' to build a target image."
 	@echo "Run 'make all' to build all target images."
 	@echo "Run 'make clean' to clean the build output."
 	@echo "Run 'make <target>-config' to configure buildroot for a target."
+	@echo "Run 'make <package>-dirclean' to clean specific package."
